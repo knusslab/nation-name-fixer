@@ -5,9 +5,9 @@
 
 ## 사용법
 ### 오타 생성
-입력된 단어를 자모음으로 분리 한 뒤, 무작위로 n 개의 자모음을 선택하여 해당 자모음을 키보드 자판상에서 인접한 자모음으로 변경하는 방식으로 오타를 생성
+입력된 단어를 자모음으로 분리 한 뒤, 무작위로 n 개의 자모음을 선택하여 해당 자모음을 키보드 자판상에서 인접한 자모음으로 변경하는 방식으로 m개의 오타를 생성
 
-n개의 변경을 위해선 gen.py 파일의 DEGREE 변수를 수정
+n, m의 변경을 위해선 gen.py 파일의 DEGREE 및 NUM_SAMPLE 변수를 수정
 ```python
 # gen.py
 from nnf.gen import generate_typo
@@ -16,7 +16,8 @@ from nnf.unicode import join_jamos, CHARSET
 
 decomposed = [decompose_korean_word(nation) for nation in load_nations_name()]
 
-DEGREE = 1 # << 해당 숫자 수정
+DEGREE = 1 # 단어 내의 오타 갯수
+NUM_SAMPLE = 10 # 생성할 오타 갯수
 ```
 
 예시: 가나 => ㄱㅏㄴㅏ => ㄱ 선택 => ㄱ와 인접한 자모음인 ㄷㅇㄹㅎㅅ 중 1개 선택 => ㄷㅏㄴㅏ => 다나
