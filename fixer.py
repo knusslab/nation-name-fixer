@@ -1,6 +1,7 @@
 from symspellpy import SymSpell, Verbosity
 from nnf import load_nations_name, decompose_korean_word, compose_korean_jamo
 from nnf.unicode import join_jamos
+from nnf.gen import generate_typo
 
 TEST_SAMPLES = ["기나", "마키도니아공화국", "미키도니아공화국", "맥시코", "몬태네그로", "세이셜", "아프카니스탄", "저지섬", "포란드", 
                 "코트트리크", "파푸아 뉴가나", "콩고 밎주 공아훅", "도미니카연방", "도미니카연방국", "터키", "튀르키에", "터1키", "텅거", "톤기", "폴ㄹ란드", "도길", "몬트렛ㅅ"]
@@ -42,3 +43,28 @@ for target in targets:
     print(f"제안: {join_jamos(suggestion[0])}")
     print()
 
+
+print("====================================")
+print("Fuzzing from random word")
+print("====================================")
+# Fuzzing based fixer
+success = 0
+failed = 0
+for nation in decomposed:
+    for i in range(10):
+        typo = generate_typo(nation, 1)
+        suggestion = process.extractOne(typo, decomposed, scorer=fuzz.token_set_ratio)
+        
+        original = join_jamos(nation)
+        sug = join_jamos(suggestion[0])
+        if original != sug:
+            failed += 1
+            print("Original: ", original)
+            print("Typo: ", join_jamos(typo))
+            print(f"제안: {join_jamos(suggestion[0])}")
+            print()
+        else:
+            success += 1
+
+print(f"Success: {success}")
+print(f"Failed: {failed}")
