@@ -30,3 +30,6 @@ NUM_SAMPLE = 10 # 생성할 오타 갯수
 
 #### 실행 방법
 1. `python fixer.py` 입력
+
+### 실행 예제 파일
+`resource/typo_1.txt` 및 `resource/typo_2.txt` 생성 예시 존재. typo_1은 단어 내의 오타가 한 글자, typo_2는 단어 내의 오타가 두 글자인 예시
