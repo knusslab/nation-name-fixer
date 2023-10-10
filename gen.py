@@ -4,12 +4,15 @@ from nnf.unicode import join_jamos, CHARSET
 
 decomposed = [decompose_korean_word(nation) for nation in load_nations_name()]
 
+DEGREE = 1
+NUM_SAMPLE = 10
+
 tots = []
-with open("./resource/typo_2.txt", "w") as f:
+with open(f"./resource/typo_{DEGREE}.txt", "w") as f:
     for nation in decomposed:
         results = []
-        while len(results) < 10:
-            typo = generate_typo(nation, 2)
+        while len(results) < NUM_SAMPLE:
+            typo = generate_typo(nation, DEGREE)
             if typo not in results and typo not in tots:
                 results.append(typo)
                 tots.append(typo)
